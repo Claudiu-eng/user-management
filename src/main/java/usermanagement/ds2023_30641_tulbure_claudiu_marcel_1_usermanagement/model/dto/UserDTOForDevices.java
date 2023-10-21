@@ -1,0 +1,16 @@
+package usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.model.dto;
+
+import lombok.*;
+
+import java.util.UUID;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class UserDTOForDevices {
+
+    private UUID id;
+
+}
