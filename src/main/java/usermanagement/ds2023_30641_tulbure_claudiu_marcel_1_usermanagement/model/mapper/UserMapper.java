@@ -1,6 +1,7 @@
 package usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.model.mapper;
 
 import org.springframework.stereotype.Component;
+import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.model.dto.RegisterRequest;
 import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.model.dto.UserDTOForRegister;
 import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.model.dto.UserDTOForDevices;
 import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.model.dto.UserDTOForUpdate;
@@ -11,17 +12,18 @@ import java.util.List;
 @Component
 public class UserMapper {
 
-    private UserDTOForRegister entityToDTORegister(User user){
-        return UserDTOForRegister.builder()
+    private UserDTOForUpdate entityToDTOUpdate(User user){
+        return UserDTOForUpdate.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .id(user.getId())
                 .build();
     }
 
-    public List<UserDTOForRegister> entityListToDTO(List<User> users){
-        return users.stream().map(this::entityToDTORegister).toList();
+    public List<UserDTOForUpdate> entityListToDTO(List<User> users){
+        return users.stream().map(this::entityToDTOUpdate).toList();
     }
 
     public UserDTOForDevices entityToDTOForDevices(User user){

@@ -23,5 +23,6 @@ public class UserDTOForUpdate {
     private String lastName;
     @NonNull
     private List<Role> role;
+    private String password;
 
 }
