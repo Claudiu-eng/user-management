@@ -53,7 +53,7 @@ public class UserService {
     public void deleteUser(UUID id) throws UserNotFoundException {
         if(userRepository.existsById(id)){
             try {
-                restTemplate.delete(deviceManagementUrl+"/"+id, Response.class);
+                restTemplate.delete("http://"+deviceManagementUrl+":8090/api/user"+"/"+id, Response.class);
             }catch (HttpClientErrorException exception){
                 throw new UserNotFoundException();
             }

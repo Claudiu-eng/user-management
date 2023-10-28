@@ -5,6 +5,8 @@ database:
   password: ${DB_PASSWORD:12345678}
   name: ${DB_DBNAME:usermanagement}
 
+microservice:
+  name:
 
 spring:
   datasource:
@@ -31,7 +33,7 @@ server:
       max : 1
 
 device-management:
-  url: http://localhost:8090/api/user
+  url: ${MICROSERVICE_NAME:localhost}
 
 
 #logging:

@@ -1,18 +1,17 @@
 package usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.exception.model.EmailExistentException;
-import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.exception.model.UserNotFoundException;
 import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.model.dto.AuthenticationRequest;
 import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.model.dto.AuthenticationResponse;
 import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.model.dto.RegisterRequest;
 import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.service.AuthenticationService;
-import usermanagement.ds2023_30641_tulbure_claudiu_marcel_1_usermanagement.service.UserService;
 
-@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")

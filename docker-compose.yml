@@ -1,0 +1,73 @@
+version: "3.8"
+services:
+  db:
+    container_name: 'users-db'
+    image: mysql:8.1.0
+    environment:
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: "12345678"
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - "3308:3306"
+    expose:
+      - "3306"
+    volumes:
+      - my-db:/data/mysql
+  db2:
+    container_name: 'device-db'
+    image: mysql:8.1.0
+    environment:
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: "12345678"
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - "3309:3307"
+    expose:
+      - "3307"
+    volumes:
+      - my-db:/data/mysql
+  users-app:
+    container_name: usersApp
+    image: user-image
+    environment:
+      TZ: "UTC"
+      MICROSERVICE_NAME: "devicesApp"
+      DB_IP: "users-db"
+      DB_PORT: "3306"
+      DB_USER: "root"
+      DB_PASSWORD: "12345678"
+      DB_NAME: "usermanagement"
+      PORT: "8080"
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+  devices-app:
+    container_name: devicesApp
+    image: device-image
+    environment:
+      TZ: "UTC"
+      DB_IP: "device-db"
+      DB_PORT: "3306"
+      DB_USER: "root"
+      DB_PASSWORD: "12345678"
+      DB_NAME: "devicemanagement"
+    ports:
+      - "8090:8090"
+    expose:
+      - "8090"
+  frontend-app:
+    container_name: frontend-user-devices-app
+    image: front-end-angular
+    environment:
+       PORT: "80"
+    ports:
+      - "80:80"
+    expose:
+      - "80"
+volumes:
+  my-db: {}
+
+networks:
+  default:
+    name: SD1

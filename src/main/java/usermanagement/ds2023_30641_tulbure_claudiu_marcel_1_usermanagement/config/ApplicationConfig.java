@@ -71,7 +71,8 @@ public class ApplicationConfig{
         final CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedOrigin("http://localhost");
+        config.addAllowedOriginPattern("*");
         config.addAllowedHeader("*");
         config.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));;
 

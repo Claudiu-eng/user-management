@@ -47,7 +47,7 @@ public class AuthenticationService {
         userRepository.save(user);
         user = userRepository.findByEmail(request.getEmail()).orElseThrow(()-> new BadCredentialsException("Bad credentials"));
         try {
-            restTemplate.postForEntity(deviceManagementUrl, userMapper.entityToDTOForDevices(user), String.class);
+            restTemplate.postForEntity("http://"+deviceManagementUrl+":8090/api/user", userMapper.entityToDTOForDevices(user), String.class);
         } catch (Exception e) {
             userRepository.delete(user);
             throw new EmailExistentException();
