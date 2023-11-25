@@ -1,8 +1,8 @@
 version: "3.8"
 services:
-  db:
-    container_name: 'users-db'
-    image: mysql:8.1.0
+  db1:
+    container_name: userDB
+    image: mysql
     environment:
       # Password for root access
       MYSQL_ROOT_PASSWORD: "12345678"
@@ -14,8 +14,8 @@ services:
     volumes:
       - my-db:/data/mysql
   db2:
-    container_name: 'device-db'
-    image: mysql:8.1.0
+    container_name: deviceDB
+    image: mysql
     environment:
       # Password for root access
       MYSQL_ROOT_PASSWORD: "12345678"
@@ -26,18 +26,32 @@ services:
       - "3307"
     volumes:
       - my-db:/data/mysql
+  db3:
+    container_name: monitoringDB
+    image: mysql
+    environment:
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: "12345678"
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - "3310:3308"
+    expose:
+      - "3308"
+    volumes:
+      - my-db:/data/mysql
   users-app:
     container_name: usersApp
     image: user-image
     environment:
       TZ: "UTC"
       MICROSERVICE_NAME: "devicesApp"
-      DB_IP: "users-db"
+      DB_IP: userDB
       DB_PORT: "3306"
       DB_USER: "root"
       DB_PASSWORD: "12345678"
       DB_NAME: "usermanagement"
       PORT: "8080"
+      ALLOWED_ORIGINS: "http://localhost"
     ports:
       - "8080:8080"
     expose:
@@ -47,15 +61,31 @@ services:
     image: device-image
     environment:
       TZ: "UTC"
-      DB_IP: "device-db"
+      DB_IP: deviceDB
       DB_PORT: "3306"
       DB_USER: "root"
       DB_PASSWORD: "12345678"
       DB_NAME: "devicemanagement"
+      ALLOWED_ORIGINS: "http://localhost"
     ports:
       - "8090:8090"
     expose:
       - "8090"
+  monitoring-app:
+    container_name: monitoringApp
+    image: monitoring-image
+    environment:
+      TZ: "UTC"
+      DB_IP: monitoringDB
+      DB_PORT: "3306"
+      DB_USER: "root"
+      DB_PASSWORD: "12345678"
+      DB_NAME: "monitoring"
+      ALLOWED_ORIGINS: "http://localhost"
+    ports:
+      - "8095:8095"
+    expose:
+      - "8095"
   frontend-app:
     container_name: frontend-user-devices-app
     image: front-end-angular

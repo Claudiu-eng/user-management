@@ -17,11 +17,13 @@ public class DataSourceConfig {
     private String databaseUrlFlyway;
     @Value("${database.port}")
     private String databasePortFlyway;
+    @Value("${database.name}")
+    private String databaseName;
 
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://" + databaseUrlFlyway+":"+ databasePortFlyway +"/usermanagement");
+        config.setJdbcUrl("jdbc:mysql://" + databaseUrlFlyway+":"+ databasePortFlyway +"/"+databaseName);
         config.setUsername("root");
         config.setPassword("12345678");
         return new HikariDataSource(config);

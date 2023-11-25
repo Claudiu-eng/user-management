@@ -13,8 +13,6 @@ spring:
     url: jdbc:mysql://${database.ip}:${database.port}/${database.name}?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
     username: ${database.user}
     password: ${database.password}
-  #  autoconfigure:
-  #    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 
   jpa:
     hibernate:
@@ -26,6 +24,10 @@ spring:
         format_sql: true
         dialect : org.hibernate.dialect.MySQLDialect
     database: mysql
+
+allowed:
+  origins: ${ALLOWED_ORIGINS:http://localhost:4200}
+
 server:
   port: ${PORT:8080}
   tomcat:
