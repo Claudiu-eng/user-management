@@ -9,5 +9,3 @@ build:
     DOCKER_TLS_CERTDIR: "/certs"
   script:
     - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
-    - docker build -t $IMAGE_NAME:$IMAGE_TAG .
-    - docker push $IMAGE_NAME:$IMAGE_TAG
