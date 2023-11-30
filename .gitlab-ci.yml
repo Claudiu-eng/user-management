@@ -9,9 +9,13 @@ build:
     - echo "building"
     - mkdir build
     - touch build/computer.txt
+    - exit 1
     - echo "mainboard" >> build/computer.txt
     - cat build/computer.txt
     - echo "keyboard" >> build/computer.txt
+  artifacts:
+    paths:
+      - build
 
 test:
   image: alpine
