@@ -1,0 +1,22 @@
+trigger:
+  - master  # Definiți ramura pentru care să declanșați pipeline-ul
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+  - job: Build
+    steps:
+      - task: UseJavaVersion@0
+        inputs:
+          versionSpec: '11'  # Ajustați la versiunea Java pe care o utilizați în proiect
+
+      - script: ./mvnw clean install  # Ajustați comanda Maven pentru a se potrivi cu proiectul vostru
+
+  - job: Deploy
+    steps:
+      - task: UseJavaVersion@0
+        inputs:
+          versionSpec: '11'
+
+      - script: ./mvnw azure-webapp:deploy  # Ajustați comanda Maven pentru a se potrivi cu proiectul vostru
