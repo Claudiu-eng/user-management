@@ -11,5 +11,4 @@ test:
   script:
     - echo "Test DEMO app"
     - mvn test && mvn jacoco:report
-    - cat target/site/jacoco/index.html | grep -o '.*'
   coverage: "/Total.*?([0-9]{1,3})%/"
