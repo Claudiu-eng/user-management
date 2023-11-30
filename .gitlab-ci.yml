@@ -1,10 +1,14 @@
-variables:
-  IMAGE_NAME: claudiutulbure/public
-  IMAGE_TAG: user-image
 build:
-  image: docker:20.10.16
-  services:
-   - docker:20.10.16-dind
+  image: alpine
   script:
-   - docker build -t $IMAGE_NAME:$IMAGE_TAG .
-   - docker push $IMAGE_NAME:$IMAGE_TAG
+    - echo "building"
+    - mkdir build
+    - touch build/computer.txt
+    - echo "mainboard" >> build/computer.txt
+    - cat build/computer.txt
+    - echo "keyboard" >> build/computer.txt
+
+test:
+  image: alpine
+  script:
+    - test -f build/computer.txt 
