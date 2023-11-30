@@ -1,5 +1,10 @@
+stages:
+  - build
+  - test
+
 build:
   image: alpine
+  stage: build
   script:
     - echo "building"
     - mkdir build
@@ -10,5 +15,6 @@ build:
 
 test:
   image: alpine
+  stage: test
   script:
     - test -f build/computer.txt 
