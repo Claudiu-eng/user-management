@@ -1,17 +1,19 @@
 stages:
   - build
   - test
-
+variables:
+  BUILD_NAME: "computer.txt"
+    
 build:
   image: alpine
   stage: build
   script:
     - echo "building"
     - mkdir build
-    - touch build/computer.txt
-    - echo "Mainboard" >> build/computer.txt
-    - cat build/computer.txt
-    - echo "Keyboard" >> build/computer.txt
+    - touch build/$BUILD_NAME
+    - echo "Mainboard" >> build/$BUILD_NAME
+    - cat build/$BUILD_NAME
+    - echo "Keyboard" >> build/$BUILD_NAME
   artifacts:
     paths:
       - build
@@ -20,6 +22,6 @@ test:
   image: alpine
   stage: test
   script:
-    - test -f build/computer.txt 
-    - grep "Mainboard" build/computer.txt
-    - grep "Keyboard" build/computer.txt
+    - test -f build/$BUILD_NAME 
+    - grep "Mainboard" build/$BUILD_NAME
+    - grep "Keyboard" build/$BUILD_NAME
