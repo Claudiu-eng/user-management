@@ -1,12 +1,27 @@
+stages:
+  - build
+  - test
 variables:
-  IMAGE_NAME: claudiutulbure/public
-  IMAGE_TAG: user-image
+  BUILD_NAME: "computer.txt"
+    
 build:
-  image: docker:20.10.16
-  services:
-   - docker:20.10.16-dind
-  variables:
-   DOCKER_TLS_CERTDIR: "/certs"
+  image: alpine
+  stage: build
   script:
-   - docker build -t $IMAGE_NAME:$IMAGE_TAG .
-   - docker push $IMAGE_NAME:$IMAGE_TAG
+    - echo "building"
+    - mkdir build
+    - touch build/$BUILD_NAME
+    - echo "Mainboard" >> build/$BUILD_NAME
+    - cat build/$BUILD_NAME
+    - echo "Keyboard" >> build/$BUILD_NAME
+  artifacts:
+    paths:
+      - build
+
+test:
+  image: alpine
+  stage: test
+  script:
+    - test -f build/$BUILD_NAME 
+    - grep "Mainboard" build/$BUILD_NAME
+    - grep "Keyboard" build/$BUILD_NAME
