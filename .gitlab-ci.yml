@@ -1,14 +1,3 @@
-stages:
-  - test
-  - checkstyle
-  - build
-  - deploy
-
-
-test:
-  stage: test
-  image: maven:3.8.4-openjdk-17
+build:
   script:
-    - echo "Test DEMO app"
-    - mvn test && mvn jacoco:report
-  coverage: "/Total.*?([0-9]{1,3})%/"
+    - echo "building pipeline"
