@@ -41,6 +41,8 @@ services:
       - my-db:/data/mysql
   users-app:
     container_name: usersApp
+    depends_on:
+      - db1
     image: user-image
     environment:
       TZ: "UTC"
@@ -58,6 +60,8 @@ services:
       - "8080"
   devices-app:
     container_name: devicesApp
+    depends_on:
+      - db2
     image: device-image
     environment:
       TZ: "UTC"
@@ -73,6 +77,8 @@ services:
       - "8090"
   monitoring-app:
     container_name: monitoringApp
+    depends_on:
+      - db3
     image: monitoring-image
     environment:
       TZ: "UTC"
