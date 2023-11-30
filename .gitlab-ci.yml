@@ -1,0 +1,15 @@
+stages:
+  - test
+  - checkstyle
+  - build
+  - deploy
+
+
+test:
+  stage: test
+  image: maven:3.6.3-openjdk-11
+  script:
+    - echo "Test DEMO app"
+    - mvn test && mvn jacoco:report
+    - cat target/site/jacoco/index.html | grep -o '.*'
+  coverage: "/Total.*?([0-9]{1,3})%/"
