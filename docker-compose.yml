@@ -39,6 +39,20 @@ services:
       - "3308"
     volumes:
       - my-db:/data/mysql
+  db4:
+    container_name: chatDB
+    image: mysql
+    environment:
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: "12345678"
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - "3311:3309"
+    expose:
+      - "3309"
+    volumes:
+      - my-db:/data/mysql
+
   users-app:
     container_name: usersApp
     depends_on:
@@ -92,6 +106,23 @@ services:
       - "8095:8095"
     expose:
       - "8095"
+  chat-app:
+    container_name: chatApp
+    depends_on:
+      - db4
+    image: chat-image
+    environment:
+      TZ: "UTC"
+      DB_IP: chatDB
+      DB_PORT: "3306"
+      DB_USER: "root"
+      DB_PASSWORD: "12345678"
+      DB_NAME: "chatmanagement"
+      ALLOWED_ORIGINS: "http://localhost"
+    ports:
+      - "8085:8085"
+    expose:
+      - "8085"
   frontend-app:
     container_name: frontend-user-devices-app
     image: front-end-angular
